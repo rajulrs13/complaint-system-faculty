@@ -1,134 +1,109 @@
 <template>
-  <v-layout>
-    <!-- Loader  -->
-    <div class="text-xs-center" v-if="loading">
-      <v-dialog v-model="dialog" hide-overlay v-if="loading" persistent width="300">
-        <v-card color="orange" dark>
-          <v-card-text>
-            Please Stand By...
-            <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
-    </div>
-
-    <!-- Alert snackbars -->
-    <alert-component v-if="error" :text="error.message" :color="'error'"></alert-component>
-    <alert-component v-if="success" :text="success.message" :color="'success'"></alert-component>
-
-    <v-flex xs12>
-      <v-card raised>
-        <v-card-title class="primary">
-          <v-icon class="ml-2 mr-3 fas fa-clipboard"></v-icon>
-          <h1 class="font-weight-light white--text">New Service Request</h1>
-        </v-card-title>
-
-        <v-progress-linear
-          v-if="loading"
-          class="mt-0"
-          height="3"
-          color="accent"
-          :indeterminate="loading"
-        ></v-progress-linear>
-
-        <v-card-text>
-          <v-form @submit.prevent="validate" ref="form" v-model="registrationformvalid">
-            <v-container>
-              <v-layout row wrap>
-                <v-flex xs12 sm6>
-                  <v-select
-                    v-model="category"
-                    :items="list_of_categories"
-                    item-text="name"
-                    item-value="name"
-                    label="Select Category"
-                    prepend-icon="list_alt"
-                    persistent-hint
-                    return-object
-                    :rules="inputruleforsubject"
-                  ></v-select>
-                </v-flex>
-                <v-flex xs12 sm6>
-                  <v-select
-                    v-if="category != ''"
-                    v-model="description"
-                    :items="list_of_descriptions[category.code]"
-                    item-text="name"
-                    item-value="name"
-                    label="Select Description"
-                    prepend-icon="horizontal_split"
-                    persistent-hint
-                    return-object
-                    :rules="inputruleforsubject"
-                  ></v-select>
-                </v-flex>
-                <v-flex xs12 sm6>
-                  <v-select
-                    v-if="description != ''"
-                    v-model="availabilityoftime"
-                    :items="list_of_time"
-                    item-text="name"
-                    item-value="name"
-                    label="Availability Time"
-                    prepend-icon="access_time"
-                    persistent-hint
-                    return-object
-                    :rules="inputruleforsubject"
-                  ></v-select>
-                </v-flex>
-                <v-flex xs12 sm6 v-if="availabilityoftime != ''">
-                  <v-dialog
-                    ref="dialog"
-                    v-model="modal"
-                    :return-value.sync="date"
-                    persistent
-                    lazy
-                    full-width
-                    width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="availabilityofdate"
-                        label="Availability Date"
-                        prepend-icon="event"
-                        readonly
-                        v-on="on"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="availabilityofdate" scrollable :min="minDate">
-                      <v-spacer></v-spacer>
-                      <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
-                      <v-btn flat color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
-                    </v-date-picker>
-                  </v-dialog>
-                </v-flex>
-                <v-flex xs12>
-                  <v-textarea
-                    v-if="availabilityoftime != '' && availabilityofdate != ''"
-                    name="input-7-1"
-                    label="Comments/ Details"
-                    auto-grow
-                    rows="3"
-                  ></v-textarea>
-                </v-flex>
-              </v-layout>
-            </v-container>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="accent" :loading="loading" type="submit" raised ripple>Submit</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-form>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  
+    <v-layout row>
+      <v-flex xs12>
+        <v-layout row wrap>
+          <v-flex xs12>
+            <h1 class="font-weight-light text-xs-center my-4">New Service Request</h1>
+            <v-form @submit.prevent="validate" ref="form" v-model="registrationformvalid">
+              <v-container>
+                <v-layout row wrap>
+                  <v-flex xs12 sm6 offset-sm3>
+                    <v-select
+                      v-model="category"
+                      :items="list_of_categories"
+                      item-text="name"
+                      item-value="name"
+                      label="Select Category"
+                      prepend-icon="list_alt"
+                      persistent-hint
+                      return-object
+                      :rules="inputruleforsubject"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6 offset-sm3>
+                    <v-select
+                      v-if="category != ''"
+                      v-model="description"
+                      :items="list_of_descriptions[category.code]"
+                      item-text="name"
+                      item-value="name"
+                      label="Select Description"
+                      prepend-icon="horizontal_split"
+                      persistent-hint
+                      return-object
+                      :rules="inputruleforsubject"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6 offset-sm3>
+                    <v-select
+                      v-if="description != ''"
+                      v-model="availabilityoftime"
+                      :items="list_of_time"
+                      item-text="name"
+                      item-value="name"
+                      label="Availability Time"
+                      prepend-icon="access_time"
+                      persistent-hint
+                      return-object
+                      :rules="inputruleforsubject"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6 offset-sm3 v-if="availabilityoftime != ''">
+                    <v-dialog
+                      ref="dialog"
+                      v-model="modal"
+                      :return-value.sync="date"
+                      persistent
+                      lazy
+                      full-width
+                      width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="availabilityofdate"
+                          label="Availability Date"
+                          prepend-icon="event"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="availabilityofdate" scrollable :min="minDate">
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
+                        <v-btn flat color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                      </v-date-picker>
+                    </v-dialog>
+                  </v-flex>
+                  <v-flex xs12 sm6 offset-sm3>
+                    <v-textarea
+                      v-if="availabilityoftime != '' && availabilityofdate != ''"
+                      name="input-7-1"
+                      label="Comments/ Details"
+                      auto-grow
+                      rows="3"
+                    ></v-textarea>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="accent" :loading="loading" type="submit" raised ripple>Submit</v-btn>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-form>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+    </v-layout>
+  
 </template>
 
 <script>
 export default {
   data: () => ({
-    modal:false,
+    dialog: false,
+    modal: false,
     valid: true,
     category: "",
     list_of_categories: [
@@ -467,7 +442,7 @@ export default {
       "11PM - 12AM"
     ],
     availabilityofdate: new Date().toISOString().substr(0, 10),
-    minDate:new Date().toISOString().substr(0, 10)
+    minDate: new Date().toISOString().substr(0, 10)
   }),
   methods: {},
   computed: {
