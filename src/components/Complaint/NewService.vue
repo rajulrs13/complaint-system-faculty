@@ -18,9 +18,9 @@
 
     <v-flex xs12>
       <v-card raised>
-        <v-card-title class="grey lighten-3">
+        <v-card-title class="primary">
           <v-icon class="ml-2 mr-3 fas fa-clipboard"></v-icon>
-          <h1 class="font-weight-light">New Service Request</h1>
+          <h1 class="font-weight-light white--text">New Service Request</h1>
         </v-card-title>
 
         <v-progress-linear
@@ -95,7 +95,7 @@
                         v-on="on"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="availabilityofdate" scrollable>
+                    <v-date-picker v-model="availabilityofdate" scrollable :min="minDate">
                       <v-spacer></v-spacer>
                       <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
                       <v-btn flat color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
@@ -115,7 +115,7 @@
             </v-container>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="success" :loading="loading" type="submit" raised ripple>Submit</v-btn>
+              <v-btn color="accent" :loading="loading" type="submit" raised ripple>Submit</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-form>
@@ -466,7 +466,8 @@ export default {
       "10PM - 11PM",
       "11PM - 12AM"
     ],
-    availabilityofdate: new Date().toISOString().substr(0, 10)
+    availabilityofdate: new Date().toISOString().substr(0, 10),
+    minDate:new Date().toISOString().substr(0, 10)
   }),
   methods: {},
   computed: {
