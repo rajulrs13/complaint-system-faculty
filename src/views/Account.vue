@@ -129,7 +129,7 @@ export default {
       this.contact_edit_dialog = true;
     },
     closeChangeContactDialog() {
-      this.newname = "";
+      this.newcontact = "";
       this.contact_edit_dialog = false;
     },
     changeContact() {
