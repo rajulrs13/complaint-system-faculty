@@ -14,16 +14,16 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-dialog v-model="phone_edit_dialog" persistent max-width="400">
+      <v-dialog v-model="contact_edit_dialog" persistent max-width="400">
         <v-card>
           <v-card-title class="title font-weight-light">Change Your Phone Number?</v-card-title>
           <v-card-text>
-            <v-text-field label="New Phone Number" single-line></v-text-field>
+            <v-text-field label="New Phone Number" v-model="newcontact" single-line></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click="phone_edit_dialog = false">No</v-btn>
-            <v-btn color="primary" flat @click="phone_edit_dialog = false">Yes</v-btn>
+            <v-btn color="primary" flat @click="closeChangeContactDialog">No</v-btn>
+            <v-btn color="primary" flat @click="changeContact">Yes</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -60,7 +60,7 @@
               <v-list-tile-sub-title>Mobile</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-icon @click="phone_edit_dialog = true">edit</v-icon>
+              <v-icon @click="contact_edit_dialog = true">edit</v-icon>
             </v-list-tile-action>
           </v-list-tile>
 
@@ -108,8 +108,9 @@ export default {
   data() {
     return {
       newname: "",
+      newcontact:"",
       name_edit_dialog: false,
-      phone_edit_dialog: false
+      contact_edit_dialog: false
     };
   },
   methods: {
@@ -123,6 +124,17 @@ export default {
     changeName() {
       this.$store.dispatch("changeName", this.newname);
       this.closeChangeNameDialog();
+    },
+    openChangeContactDialog() {
+      this.contact_edit_dialog = true;
+    },
+    closeChangeContactDialog() {
+      this.newname = "";
+      this.contact_edit_dialog = false;
+    },
+    changeContact() {
+      this.$store.dispatch("changeContact", this.newcontact);
+      this.closeChangeContactDialog();
     },
     logout() {
       this.$store.dispatch("logout");
