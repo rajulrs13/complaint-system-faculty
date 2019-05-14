@@ -18,6 +18,11 @@
                 <v-layout row wrap>
                   <v-flex xs12>
                     <v-layout row wrap>
+                      <v-flex xs5 class="text-xs-left font-weight-regular">Complaint ID:</v-flex>
+                      <v-flex xs7 class="text-xs-right font-weight-light">{{detailitem.id}}</v-flex>
+                    </v-layout>
+                    <br>
+                    <v-layout row wrap>
                       <v-flex xs4 class="text-xs-left font-weight-regular">Category:</v-flex>
                       <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.category}}</v-flex>
                     </v-layout>
@@ -116,6 +121,7 @@ export default {
       detailsdialog: false,
       items: [
         {
+          id:'V8IBVpaTLnHPEc1lPhTB',
           dateandtime: "12 May 2019 7:30PM",
           comments: "Jaldi Kar Do Please",
           category: "Civil",
@@ -124,6 +130,7 @@ export default {
           status: 1
         },
         {
+          id:'V8IBVpaTLnHPEc1lPhTB',
           dateandtime: "12 May 2019 11:30PM",
           comments: "Jaldi Kar Do Please",
           category: "Heating, Ventilation & AC",

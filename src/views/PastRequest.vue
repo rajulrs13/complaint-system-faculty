@@ -16,20 +16,45 @@
               </v-card-title>
               <v-card-text>
                 <v-layout row wrap>
-                  <v-flex xs4 class="text-xs-left font-weight-regular">Category:</v-flex>
-                  <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.category}}</v-flex>
-                  <v-flex xs4 class="text-xs-left font-weight-regular">Description:</v-flex>
-                  <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.description}}</v-flex>
-                  <v-flex xs4 class="text-xs-left font-weight-regular">Room:</v-flex>
-                  <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.blockandroom}}</v-flex>
-                  <v-flex xs4 class="text-xs-left font-weight-regular">Date & Time:</v-flex>
-                  <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.dateandtime}}</v-flex>
-                  <v-flex xs4 class="text-xs-left font-weight-regular">Comments:</v-flex>
-                  <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.comments}}</v-flex>
-                  <v-flex xs4 class="text-xs-left font-weight-regular">Status:</v-flex>
-                  <v-flex xs8 class="text-xs-right font-weight-light success--text">Resolved</v-flex>
-                  <v-flex xs4 class="text-xs-left font-weight-regular">Time Taken:</v-flex>
-                  <v-flex xs8 class="text-xs-right font-weight-light">11 hours</v-flex>
+                  <v-flex xs12>
+                    <v-layout row wrap>
+                      <v-flex xs5 class="text-xs-left font-weight-regular">Complaint ID:</v-flex>
+                      <v-flex xs7 class="text-xs-right font-weight-light">{{detailitem.id}}</v-flex>
+                    </v-layout>
+                    <br>
+                    <v-layout row wrap>
+                      <v-flex xs4 class="text-xs-left font-weight-regular">Category:</v-flex>
+                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.category}}</v-flex>
+                    </v-layout>
+                    <v-layout row wrap>
+                      <v-flex xs4 class="text-xs-left font-weight-regular">Description:</v-flex>
+                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.description}}</v-flex>
+                    </v-layout>
+                    <v-layout row wrap>
+                      <v-flex xs4 class="text-xs-left font-weight-regular">Room:</v-flex>
+                      <v-flex
+                        xs8
+                        class="text-xs-right font-weight-light"
+                      >{{detailitem.blockandroom}}</v-flex>
+                    </v-layout>
+                    <v-layout row wrap>
+                      <v-flex xs4 class="text-xs-left font-weight-regular">Date & Time:</v-flex>
+                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.dateandtime}}</v-flex>
+                    </v-layout>
+                    <v-layout row wrap>
+                      <v-flex xs4 class="text-xs-left font-weight-regular">Comments:</v-flex>
+                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.comments}}</v-flex>
+                    </v-layout>
+                    <br>
+                    <v-layout row wrap>
+                      <v-flex xs4 class="text-xs-left font-weight-regular">Status:</v-flex>
+                      <v-flex xs8 class="text-xs-right font-weight-light success--text">Resolved</v-flex>
+                    </v-layout>
+                    <v-layout row wrap>
+                      <v-flex xs5 class="text-xs-left font-weight-regular">Time Taken:</v-flex>
+                      <v-flex xs7 class="text-xs-right font-weight-light">11 hr</v-flex>
+                    </v-layout>
+                  </v-flex>
                 </v-layout>
               </v-card-text>
               <v-card-actions>
@@ -64,7 +89,6 @@
                     <!-- <v-icon v-else-if="item.status==2" color="error">lens</v-icon> -->
                     <!-- <v-icon v-else color="info">lens</v-icon> -->
                     <v-icon color="success">lens</v-icon>
-
                   </v-list-tile-action>
                 </v-list-tile>
 
@@ -97,19 +121,21 @@ export default {
       detailsdialog: false,
       items: [
         {
+          id:'V8IBVpaTLnHPEc1lPhTB',
           dateandtime: "12 May 2019 7:30PM",
           comments: "Jaldi Kar Do Please",
           category: "Civil",
           description: "Wall Touchup Required",
-          blockandroom: "B5 503",
+          blockandroom: "FH1 101",
           status: 1
         },
         {
+          id:'V8IBVpaTLnHPEc1lPhTB',
           dateandtime: "12 May 2019 11:30PM",
           comments: "Jaldi Kar Do Please",
           category: "Heating, Ventilation & AC",
           description: "Wall Touchup Required",
-          blockandroom: "B5 503",
+          blockandroom: "FH2 001",
           status: 2
         }
       ],

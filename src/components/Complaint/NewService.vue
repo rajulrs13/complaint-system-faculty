@@ -147,11 +147,11 @@ export default {
     block_selected: "",
     list_of_blocks: [
       {
-        name: "B5",
+        name: "FH 1",
         code: 1
       },
       {
-        name: "B2",
+        name: "FH 2",
         code: 2
       }
     ],
@@ -513,7 +513,7 @@ export default {
       } else {
         this.type_of_room = "My Room";
         this.block_selected = {
-          name: "B5",
+          name: "FH 1",
           code: 1
         };
         this.room_selected = "101";
@@ -554,7 +554,7 @@ export default {
     console.log(this.$route);
     this.type_of_room = "My Room";
     this.block_selected = {
-      name: "B5",
+      name: "FH 1",
       code: 1
     };
     this.room_selected = "101";
