@@ -3,37 +3,75 @@
     <v-flex xs12>
       <v-layout row wrap v-if="true">
         <v-flex xs12>
-          <!-- <h1 class="font-weight-light text-xs-center my-4">Past Service Requests</h1> -->
-          <v-card flat>
-            <v-img src="https://cdn.vuetifyjs.com/images/lists/ali.png" height="250px">
-              <v-container fill-height>
-                <v-layout align-center>
-                  <strong
-                    class="display-1 font-weight-regular white--text mr-4"
-                  >Past Service Requests</strong>
+          <v-dialog
+            v-model="detailsdialog"
+            v-if="detailitem!==null && detailitem!==undefined"
+            persistent
+            max-width="400"
+          >
+            <v-card>
+              <v-card-title class="title font-weight-light">
+                <v-spacer></v-spacer>Details
+                <v-spacer></v-spacer>
+              </v-card-title>
+              <v-card-text>
+                <v-layout row wrap>
+                  <v-flex xs4 class="text-xs-left font-weight-regular">Category:</v-flex>
+                  <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.category}}</v-flex>
+                  <v-flex xs4 class="text-xs-left font-weight-regular">Description:</v-flex>
+                  <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.description}}</v-flex>
+                  <v-flex xs4 class="text-xs-left font-weight-regular">Room:</v-flex>
+                  <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.blockandroom}}</v-flex>
+                  <v-flex xs4 class="text-xs-left font-weight-regular">Date & Time:</v-flex>
+                  <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.dateandtime}}</v-flex>
+                  <v-flex xs4 class="text-xs-left font-weight-regular">Comments:</v-flex>
+                  <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.comments}}</v-flex>
+                  <v-flex xs4 class="text-xs-left font-weight-regular">Status:</v-flex>
+                  <v-flex xs8 class="text-xs-right font-weight-light success--text">Resolved</v-flex>
+                  <v-flex xs4 class="text-xs-left font-weight-regular">Time Taken:</v-flex>
+                  <v-flex xs8 class="text-xs-right font-weight-light">11 hours</v-flex>
                 </v-layout>
-              </v-container>
-            </v-img>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" flat @click="closedetails">Okay</v-btn>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <v-toolbar flat color="primary">
+            <v-spacer></v-spacer>
+            <h1 class="font-weight-light text-xs-center my-4 white--text">Past Service Requests</h1>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <!-- <h1 class="font-weight-light text-xs-center my-4">Past Service Requests</h1> -->
+
+          <v-flex xs12 sm6 offset-sm3>
             <v-list three-line>
-              <template v-for="(item, index) in items">
-                <v-subheader v-if="item.header" :key="item.header">{{ item.header }}</v-subheader>
-
-                <v-divider v-else-if="item.divider" :key="index" :inset="item.inset"></v-divider>
-
-                <v-list-tile v-else :key="item.title" avatar @click>
-                  <v-list-tile-avatar>
-                      <v-avatar color="success">
-                    <v-icon class="white--text">done</v-icon></v-avatar>
-                  </v-list-tile-avatar>
-
+              <div v-for="(item, index) in items" :key="index">
+                <v-list-tile @click="opendetails(item)">
                   <v-list-tile-content>
-                    <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                    <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+                    <v-list-tile-title>{{ item.category }}</v-list-tile-title>
+                    <v-list-tile-sub-title class="text--primary">{{ item.description }}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>{{ item.blockandroom }}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title class="text-truncate">{{ item.comments }}</v-list-tile-sub-title>
                   </v-list-tile-content>
+
+                  <v-list-tile-action>
+                    <v-list-tile-action-text>{{ item.dateandtime }}</v-list-tile-action-text>
+
+                    <!-- <v-icon v-if="item.status==1" color="success">lens</v-icon> -->
+                    <!-- <v-icon v-else-if="item.status==2" color="error">lens</v-icon> -->
+                    <!-- <v-icon v-else color="info">lens</v-icon> -->
+                    <v-icon color="success">lens</v-icon>
+
+                  </v-list-tile-action>
                 </v-list-tile>
-              </template>
+
+                <v-divider class="my-2" v-if="index + 1 < items.length" :key="index"></v-divider>
+              </div>
             </v-list>
-          </v-card>
+          </v-flex>
         </v-flex>
       </v-layout>
       <v-layout align-center justify-center column fill-height v-else>
@@ -56,44 +94,37 @@
 export default {
   data() {
     return {
+      detailsdialog: false,
       items: [
-        { header: "Today" },
         {
-          
-          title: "Brunch this weekend?",
-          subtitle:
-            "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+          dateandtime: "12 May 2019 7:30PM",
+          comments: "Jaldi Kar Do Please",
+          category: "Civil",
+          description: "Wall Touchup Required",
+          blockandroom: "B5 503",
+          status: 1
         },
-        { divider: true, inset: true },
         {
-          
-          title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-          subtitle:
-            "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend."
-        },
-        { divider: true, inset: true },
-        {
-          
-          title: "Oui oui",
-          subtitle:
-            "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?"
-        },
-        { divider: true, inset: true },
-        {
-          
-          title: "Birthday gift",
-          subtitle:
-            "<span class='text--primary'>Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?"
-        },
-        { divider: true, inset: true },
-        {
-          
-          title: "Recipe to try",
-          subtitle:
-            "<span class='text--primary'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos."
+          dateandtime: "12 May 2019 11:30PM",
+          comments: "Jaldi Kar Do Please",
+          category: "Heating, Ventilation & AC",
+          description: "Wall Touchup Required",
+          blockandroom: "B5 503",
+          status: 2
         }
-      ]
+      ],
+      detailitem: null
     };
+  },
+  methods: {
+    opendetails(item) {
+      this.detailitem = item;
+      this.detailsdialog = true;
+    },
+    closedetails() {
+      this.detailitem = null;
+      this.detailsdialog = false;
+    }
   }
 };
 </script>

@@ -1,102 +1,140 @@
 <template>
-  
-    <v-layout row>
-      <v-flex xs12>
-        <v-layout row wrap>
-          <v-flex xs12>
-            <h1 class="font-weight-light text-xs-center my-4">New Service Request</h1>
-            <v-form @submit.prevent="validate" ref="form" v-model="registrationformvalid">
-              <v-container>
-                <v-layout row wrap>
-                  <v-flex xs12 sm6 offset-sm3>
-                    <v-select
-                      v-model="category"
-                      :items="list_of_categories"
-                      item-text="name"
-                      item-value="name"
-                      label="Select Category"
-                      prepend-icon="list_alt"
-                      persistent-hint
-                      return-object
-                      :rules="inputruleforsubject"
-                    ></v-select>
-                  </v-flex>
-                  <v-flex xs12 sm6 offset-sm3>
-                    <v-select
-                      v-if="category != ''"
-                      v-model="description"
-                      :items="list_of_descriptions[category.code]"
-                      item-text="name"
-                      item-value="name"
-                      label="Select Description"
-                      prepend-icon="horizontal_split"
-                      persistent-hint
-                      return-object
-                      :rules="inputruleforsubject"
-                    ></v-select>
-                  </v-flex>
-                  <v-flex xs12 sm6 offset-sm3>
-                    <v-select
-                      v-if="description != ''"
-                      v-model="availabilityoftime"
-                      :items="list_of_time"
-                      item-text="name"
-                      item-value="name"
-                      label="Availability Time"
-                      prepend-icon="access_time"
-                      persistent-hint
-                      return-object
-                      :rules="inputruleforsubject"
-                    ></v-select>
-                  </v-flex>
-                  <v-flex xs12 sm6 offset-sm3 v-if="availabilityoftime != ''">
-                    <v-dialog
-                      ref="dialog"
-                      v-model="modal"
-                      :return-value.sync="date"
-                      persistent
-                      lazy
-                      full-width
-                      width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          v-model="availabilityofdate"
-                          label="Availability Date"
-                          prepend-icon="event"
-                          readonly
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker v-model="availabilityofdate" scrollable :min="minDate">
-                        <v-spacer></v-spacer>
-                        <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
-                        <v-btn flat color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
-                      </v-date-picker>
-                    </v-dialog>
-                  </v-flex>
-                  <v-flex xs12 sm6 offset-sm3>
-                    <v-textarea
-                      v-if="availabilityoftime != '' && availabilityofdate != ''"
-                      name="input-7-1"
-                      label="Comments/ Details"
-                      auto-grow
-                      rows="3"
-                    ></v-textarea>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="accent" :loading="loading" type="submit" raised ripple>Submit</v-btn>
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-form>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-    </v-layout>
-  
+  <v-layout row>
+    <v-flex xs12>
+      <v-layout row wrap>
+        <v-flex xs12>
+          <v-toolbar flat color="primary">
+            <v-spacer></v-spacer>
+            <h1 class="font-weight-light text-xs-center my-4 white--text">New Service Request</h1>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <!-- <h1 class="font-weight-light text-xs-center my-4">New Service Request</h1> -->
+          <v-form @submit.prevent="validate" ref="form" v-model="registrationformvalid">
+            <v-container>
+              <v-layout row wrap>
+                <v-flex xs12 sm6 offset-sm3 class="text-xs-center">
+                  <span class="font-weight-thin caption">Request For</span>
+                  <v-btn color="primary" flat @click="toggleTypeOfRoom">{{type_of_room}}</v-btn>
+                </v-flex>
+                <v-flex xs12 sm6 offset-sm3>
+                  <v-select
+                    v-model="block_selected"
+                    :items="list_of_blocks"
+                    item-text="name"
+                    item-value="name"
+                    label="Select Block *"
+                    prepend-icon="list_alt"
+                    persistent-hint
+                    :disabled="type_of_room == 'My Room'"
+                    return-object
+                    :rules="inputruleforsubject"
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6 offset-sm3 v-if="block_selected != ''">
+                  <v-select
+                    v-model="room_selected"
+                    :items="list_of_rooms[block_selected.code]"
+                    :disabled="type_of_room == 'My Room'"
+                    item-text="name"
+                    item-value="name"
+                    label="Select Room *"
+                    prepend-icon="list_alt"
+                    persistent-hint
+                    return-object
+                    :rules="inputruleforsubject"
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6 offset-sm3 v-if="block_selected != '' && room_selected != ''">
+                  <v-select
+                    v-model="category"
+                    :items="list_of_categories"
+                    item-text="name"
+                    item-value="name"
+                    label="Select Category *"
+                    prepend-icon="list_alt"
+                    persistent-hint
+                    return-object
+                    :rules="inputruleforsubject"
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6 offset-sm3 v-if="category != ''">
+                  <v-select
+                    v-model="description"
+                    :items="list_of_descriptions[category.code]"
+                    item-text="name"
+                    item-value="name"
+                    label="Select Description *"
+                    prepend-icon="horizontal_split"
+                    persistent-hint
+                    return-object
+                    :rules="inputruleforsubject"
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6 offset-sm3 v-if="description != ''">
+                  <v-select
+                    v-model="availabilityoftime"
+                    :items="list_of_time"
+                    item-text="name"
+                    item-value="name"
+                    label="Availability Time *"
+                    prepend-icon="access_time"
+                    persistent-hint
+                    return-object
+                    :rules="inputruleforsubject"
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6 offset-sm3 v-if="availabilityoftime != ''">
+                  <v-dialog
+                    ref="dialog"
+                    v-model="modal"
+                    :return-value.sync="date"
+                    persistent
+                    lazy
+                    full-width
+                    width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="availabilityofdate"
+                        label="Availability Date *"
+                        prepend-icon="event"
+                        readonly
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="availabilityofdate" scrollable :min="minDate">
+                      <v-spacer></v-spacer>
+                      <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
+                      <v-btn flat color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                    </v-date-picker>
+                  </v-dialog>
+                </v-flex>
+                <v-flex
+                  xs12
+                  sm6
+                  offset-sm3
+                  v-if="availabilityoftime != '' && availabilityofdate != ''"
+                >
+                  <v-textarea
+                    name="input-7-1"
+                    v-model="comments"
+                    label="Comments/ Details"
+                    auto-grow
+                    rows="2"
+                  ></v-textarea>
+                </v-flex>
+              </v-layout>
+            </v-container>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" :loading="loading" type="submit" raised ripple>Submit</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-form>
+        </v-flex>
+      </v-layout>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -105,6 +143,23 @@ export default {
     dialog: false,
     modal: false,
     valid: true,
+    type_of_room: "",
+    block_selected: "",
+    list_of_blocks: [
+      {
+        name: "B5",
+        code: 1
+      },
+      {
+        name: "B2",
+        code: 2
+      }
+    ],
+    room_selected: "",
+    list_of_rooms: {
+      1: ["001", "002", "003", "004", "101"],
+      2: ["001", "002", "003", "004"]
+    },
     category: "",
     list_of_categories: [
       {
@@ -442,9 +497,33 @@ export default {
       "11PM - 12AM"
     ],
     availabilityofdate: new Date().toISOString().substr(0, 10),
-    minDate: new Date().toISOString().substr(0, 10)
+    minDate: new Date().toISOString().substr(0, 10),
+    comments: ""
   }),
-  methods: {},
+  methods: {
+    toggleTypeOfRoom() {
+      if (this.type_of_room == "My Room") {
+        this.type_of_room = "Other Room";
+        this.block_selected = "";
+        this.room_selected = "";
+        this.category = "";
+        this.description = "";
+        this.availabilityoftime = "";
+        this.comments = "";
+      } else {
+        this.type_of_room = "My Room";
+        this.block_selected = {
+          name: "B5",
+          code: 1
+        };
+        this.room_selected = "101";
+        this.category = "";
+        this.description = "";
+        this.availabilityoftime = "";
+        this.comments = "";
+      }
+    }
+  },
   computed: {
     user() {
       return this.$store.getters.getUserId;
@@ -470,6 +549,15 @@ export default {
         setTimeout(() => this.$store.dispatch("clearSuccess"), 2000);
       }
     }
+  },
+  created() {
+    console.log(this.$route);
+    this.type_of_room = "My Room";
+    this.block_selected = {
+      name: "B5",
+      code: 1
+    };
+    this.room_selected = "101";
   }
 };
 </script>

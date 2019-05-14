@@ -35,6 +35,9 @@ export default {
       activeBtn: 0,
       showNav: true
     };
+  },
+  created(){
+    this.$router.replace('/newservice')
   }
 };
 </script>
