@@ -7,8 +7,7 @@
             v-model="detailsdialog"
             v-if="detailitem!==null && detailitem!==undefined"
             persistent
-            max-width="400"
-          >
+            max-width="400">
             <v-card>
               <v-card-title class="title font-weight-light">
                 <v-spacer></v-spacer>Details
@@ -38,8 +37,13 @@
                       >{{detailitem.blockandroom}}</v-flex>
                     </v-layout>
                     <v-layout row wrap>
-                      <v-flex xs4 class="text-xs-left font-weight-regular">Date & Time:</v-flex>
-                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.dateandtime}}</v-flex>
+                      <v-flex xs4 class="text-xs-left font-weight-regular">Time:</v-flex>
+                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.time}}</v-flex>
+                    
+                    </v-layout>
+                    <v-layout row wrap>
+                      <v-flex xs4 class="text-xs-left font-weight-regular">Date:</v-flex>
+                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.date}}</v-flex>
                     </v-layout>
                     <v-layout row wrap>
                       <v-flex xs4 class="text-xs-left font-weight-regular">Comments:</v-flex>
@@ -51,7 +55,7 @@
                       <v-flex xs8 class="text-xs-right font-weight-light info--text">Pending</v-flex>
                     </v-layout>
                     <v-layout row wrap>
-                      <v-flex xs5 class="text-xs-left font-weight-regular">Elapsed Time :</v-flex>
+                      <v-flex xs5 class="text-xs-left font-weight-regular">Elapsed Time:</v-flex>
                       <v-flex xs7 class="text-xs-right font-weight-light">11 hr</v-flex>
                     </v-layout>
                   </v-flex>
@@ -83,7 +87,8 @@
                   </v-list-tile-content>
 
                   <v-list-tile-action>
-                    <v-list-tile-action-text>{{ item.dateandtime }}</v-list-tile-action-text>
+                    <v-list-tile-action-text>{{ item.time }}</v-list-tile-action-text>
+                    <v-list-tile-action-text>{{ item.date }}</v-list-tile-action-text>
 
                     <!-- <v-icon v-if="item.status==1" color="success">lens</v-icon> -->
                     <!-- <v-icon v-else-if="item.status==2" color="error">lens</v-icon> -->
@@ -102,7 +107,7 @@
         <v-container>
         <br>
         <div class="text-xs-center">
-          <v-icon size="220">subject</v-icon>
+          <v-icon size="220">history</v-icon>
         </div>
         <br>
         <h2 style="text-align:center;" class="font-weight-light">No Active Service Requests</h2>
@@ -123,21 +128,23 @@ export default {
       detailsdialog: false,
       items: [
         {
-          id:'V8IBVpaTLnHPEc1lPhTB',
-          dateandtime: "12 May 2019 7:30PM",
+          id: "V8IBVpaTLnHPEc1lPhTB",
+          date: "12 May 2019",
+          time: "7:30 PM",
           comments: "Jaldi Kar Do Please",
           category: "Civil",
           description: "Wall Touchup Required",
-          blockandroom: "B5 503",
+          blockandroom: "FH1 101",
           status: 1
         },
         {
-          id:'V8IBVpaTLnHPEc1lPhTB',
-          dateandtime: "12 May 2019 11:30PM",
+          id: "V8IBVpaTLnHPEc1lPhTB",
+          date: "12 May 2019",
+          time: "7:30 PM",
           comments: "Jaldi Kar Do Please",
           category: "Heating, Ventilation & AC",
           description: "Wall Touchup Required",
-          blockandroom: "B5 503",
+          blockandroom: "FH2 001",
           status: 2
         }
       ],

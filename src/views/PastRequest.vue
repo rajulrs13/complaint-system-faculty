@@ -37,8 +37,13 @@
                       >{{detailitem.blockandroom}}</v-flex>
                     </v-layout>
                     <v-layout row wrap>
-                      <v-flex xs4 class="text-xs-left font-weight-regular">Date & Time:</v-flex>
-                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.dateandtime}}</v-flex>
+                      <v-flex xs4 class="text-xs-left font-weight-regular">Time:</v-flex>
+                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.time}}</v-flex>
+                    
+                    </v-layout>
+                    <v-layout row wrap>
+                      <v-flex xs4 class="text-xs-left font-weight-regular">Date:</v-flex>
+                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.date}}</v-flex>
                     </v-layout>
                     <v-layout row wrap>
                       <v-flex xs4 class="text-xs-left font-weight-regular">Comments:</v-flex>
@@ -82,7 +87,8 @@
                   </v-list-tile-content>
 
                   <v-list-tile-action>
-                    <v-list-tile-action-text>{{ item.dateandtime }}</v-list-tile-action-text>
+                    <v-list-tile-action-text>{{ item.time }}</v-list-tile-action-text>
+                    <v-list-tile-action-text>{{ item.date }}</v-list-tile-action-text>
 
                     <!-- <v-icon v-if="item.status==1" color="success">lens</v-icon> -->
                     <!-- <v-icon v-else-if="item.status==2" color="error">lens</v-icon> -->
@@ -123,7 +129,8 @@ export default {
       items: [
         {
           id: "V8IBVpaTLnHPEc1lPhTB",
-          dateandtime: "12 May 2019 7:30PM",
+          date: "12 May 2019",
+          time: "7:30 PM",
           comments: "Jaldi Kar Do Please",
           category: "Civil",
           description: "Wall Touchup Required",
@@ -132,7 +139,8 @@ export default {
         },
         {
           id: "V8IBVpaTLnHPEc1lPhTB",
-          dateandtime: "12 May 2019 11:30PM",
+          date: "12 May 2019",
+          time: "7:30 PM",
           comments: "Jaldi Kar Do Please",
           category: "Heating, Ventilation & AC",
           description: "Wall Touchup Required",
