@@ -42,7 +42,7 @@
       </v-img>-->
       <v-flex xs12 sm6 offset-sm3>
         <v-list two-line>
-          <v-list-tile @click>
+          <v-list-tile>
             <v-list-tile-action>
               <v-icon color="primary">tag_faces</v-icon>
             </v-list-tile-action>
@@ -55,8 +55,8 @@
               <v-icon @click="name_edit_dialog = true">edit</v-icon>
             </v-list-tile-action>
           </v-list-tile>
-          <v-divider ></v-divider>
-          <v-list-tile @click>
+          <v-divider></v-divider>
+          <v-list-tile>
             <v-list-tile-action>
               <v-icon color="primary">phone</v-icon>
             </v-list-tile-action>
@@ -70,9 +70,9 @@
             </v-list-tile-action>
           </v-list-tile>
 
-          <v-divider ></v-divider>
+          <v-divider></v-divider>
 
-          <v-list-tile @click>
+          <v-list-tile>
             <v-list-tile-action>
               <v-icon color="primary">mail</v-icon>
             </v-list-tile-action>
@@ -83,23 +83,24 @@
             </v-list-tile-content>
           </v-list-tile>
 
-          <v-divider ></v-divider>
+          <v-divider></v-divider>
 
-          <v-list-tile @click>
+          <v-list-tile>
             <v-list-tile-action>
               <v-icon color="primary">location_on</v-icon>
             </v-list-tile-action>
 
             <v-list-tile-content>
-              <v-list-tile-title>B5 503</v-list-tile-title>
+              <v-list-tile-title>FH1 101</v-list-tile-title>
               <v-list-tile-sub-title>Address</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-divider ></v-divider>
-          <v-list-tile @click>
+          <v-divider></v-divider>
+          <v-list-tile>
             <v-list-tile-content>
               <v-list-tile-title class="text-xs-center">
-                <v-icon color="error" left>power_settings_new</v-icon>Logout
+                <v-icon color="error" left @click="logout">power_settings_new</v-icon>
+                <span @click="logout">Logout</span>
               </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -116,6 +117,11 @@ export default {
       name_edit_dialog: false,
       phone_edit_dialog: false
     };
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    }
   }
 };
 </script>

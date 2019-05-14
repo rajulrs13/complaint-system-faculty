@@ -12,7 +12,7 @@
 
       <v-btn to="/currentrequest" flat color="teal">
         <span>Active</span>
-        <v-icon>history</v-icon>
+        <v-icon>subject</v-icon>
       </v-btn>
 
       <v-btn to="/pastrequest" flat color="teal">

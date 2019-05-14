@@ -1,9 +1,6 @@
 <template>
-<v-snackbar v-model="snackbar"  :multi-line="mode === 'multi-line'" :timeout="timeout" >
-    {{ text }}
-    <v-btn :color="color" flat @click="snackbar = false">
-        Close
-    </v-btn>
+<v-snackbar v-model="snackbar" :color="color" :multi-line="mode === 'multi-line'" :timeout="timeout" >
+    <span>{{ text }}</span>
 </v-snackbar>
 </template>
 
@@ -16,7 +13,6 @@ export default {
     data() {
         return {
             snackbar: true,
-            y: '',
             mode: '',
             timeout: 6000
         }

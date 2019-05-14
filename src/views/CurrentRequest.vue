@@ -99,9 +99,10 @@
         </v-flex>
       </v-layout>
       <v-layout align-center justify-center column fill-height v-else>
+        <v-container>
         <br>
         <div class="text-xs-center">
-          <v-icon size="220">vertical_split</v-icon>
+          <v-icon size="220">subject</v-icon>
         </div>
         <br>
         <h2 style="text-align:center;" class="font-weight-light">No Active Service Requests</h2>
@@ -110,6 +111,7 @@
           To request a service, click on
           <v-icon color="teal">add</v-icon>button down below
         </p>
+        </v-container>
       </v-layout>
     </v-flex>
   </v-layout>

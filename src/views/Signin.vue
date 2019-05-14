@@ -53,7 +53,7 @@
             </v-flex>
             <v-flex xs6>
               <div class="text-xs-center">
-                <v-btn :disabled="!valid" type="submit" fab large color="success" raised ripple>
+                <v-btn :disabled="!valid" type="submit" fab large color="primary" raised ripple>
                   <v-icon>near_me</v-icon>
                 </v-btn>
               </div>

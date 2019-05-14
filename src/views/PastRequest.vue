@@ -7,8 +7,7 @@
             v-model="detailsdialog"
             v-if="detailitem!==null && detailitem!==undefined"
             persistent
-            max-width="400"
-          >
+            max-width="400">
             <v-card>
               <v-card-title class="title font-weight-light">
                 <v-spacer></v-spacer>Details
@@ -99,9 +98,10 @@
         </v-flex>
       </v-layout>
       <v-layout align-center justify-center column fill-height v-else>
+        <v-container>
         <br>
         <div class="text-xs-center">
-          <v-icon size="220">vertical_split</v-icon>
+          <v-icon size="220">history</v-icon>
         </div>
         <br>
         <h2 style="text-align:center;" class="font-weight-light">No Past Service Requests</h2>
@@ -110,6 +110,7 @@
           To request a service, click on
           <v-icon color="teal">add</v-icon>button down below
         </p>
+        </v-container>
       </v-layout>
     </v-flex>
   </v-layout>
@@ -121,7 +122,7 @@ export default {
       detailsdialog: false,
       items: [
         {
-          id:'V8IBVpaTLnHPEc1lPhTB',
+          id: "V8IBVpaTLnHPEc1lPhTB",
           dateandtime: "12 May 2019 7:30PM",
           comments: "Jaldi Kar Do Please",
           category: "Civil",
@@ -130,7 +131,7 @@ export default {
           status: 1
         },
         {
-          id:'V8IBVpaTLnHPEc1lPhTB',
+          id: "V8IBVpaTLnHPEc1lPhTB",
           dateandtime: "12 May 2019 11:30PM",
           comments: "Jaldi Kar Do Please",
           category: "Heating, Ventilation & AC",
