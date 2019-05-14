@@ -68,6 +68,8 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+          <alert-component v-if="error" :text="error.message" :color="'error'"></alert-component>
+    <alert-component v-if="success" :text="success.message" :color="'success'"></alert-component>
           <v-toolbar flat color="primary">
             <v-spacer></v-spacer>
             <h1 class="font-weight-light text-xs-center my-4 white--text">Active Service Requests</h1>

@@ -147,11 +147,11 @@ export default {
     block_selected: "",
     list_of_blocks: [
       {
-        name: "FH 1",
+        name: "FH1",
         code: 1
       },
       {
-        name: "FH 2",
+        name: "FH2",
         code: 2
       }
     ],
@@ -522,6 +522,19 @@ export default {
         this.availabilityoftime = "";
         this.comments = "";
       }
+    },
+    requestService() {
+      var obj = {
+        block:this.block_selected,
+        room:this.room_selected,
+        category:this.category,
+        description:this.description,
+        availabilityoftime:this.availabilityoftime,
+        availabilityofdate:this.availabilityofdate,
+        comments:this.comments,
+        status:0
+      }
+      this.$store.dispatch('requestService',obj)
     }
   },
   computed: {
@@ -554,7 +567,7 @@ export default {
     console.log(this.$route);
     this.type_of_room = "My Room";
     this.block_selected = {
-      name: "FH 1",
+      name: "FH1",
       code: 1
     };
     this.room_selected = "101";
