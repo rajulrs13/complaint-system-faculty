@@ -151,6 +151,26 @@ export default {
           commit("setLoading", false);
           commit("setError", error);
         });
+    },
+    changePassword({ commit, getters }) {
+      commit("setLoading", true);
+      commit("clearError");
+      commit("clearSuccess");
+      firebase
+        .auth()
+        .sendPasswordResetEmail(getters.getUserEmail)
+        .then(function() {
+          commit("setLoading", false);
+          commit("setSuccess", {
+            message: "Password Reset Email Sent",
+            status: true
+          });
+          setTimeout(() => commit("clearSuccess"), 6000);
+        })
+        .catch(error => {
+          commit("setLoading", false);
+          commit("setError", error);
+        });
     }
   }
 };

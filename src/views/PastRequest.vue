@@ -109,7 +109,7 @@
                   </v-list-tile-action>
                 </v-list-tile>
 
-                <v-divider class="my-2" v-if="index + 1 < items.length" :key="index"></v-divider>
+                <v-divider class="my-2" v-if="index + 1 < pastServiceRequest.length" :key="index"></v-divider>
               </div>
             </v-list>
           </v-flex>

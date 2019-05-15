@@ -47,7 +47,7 @@
             :append-icon="showpassword ? 'visibility_off' : 'visibility'"
             :rules="passwordrule"
             :type="showpassword ? 'text' : 'password'"
-            label="Quiz Password"
+            label="Password"
             counter
             @click:append="showpassword = !showpassword"
           ></v-text-field>
