@@ -1,7 +1,11 @@
 <template>
   <v-layout row>
     <v-flex xs12>
-      <v-layout row wrap v-if="true">
+      <v-layout
+        row
+        wrap
+        v-if="activeServiceRequest!=null && activeServiceRequest!=undefined && activeServiceRequest.length>0"
+      >
         <v-flex xs12>
           <v-dialog
             v-model="detailsdialog"
@@ -85,7 +89,7 @@
 
           <v-flex xs12 sm6 offset-sm3>
             <v-list three-line>
-              <div v-for="(item, index) in pastServiceRequest" :key="index">
+              <div v-for="(item, index) in activeServiceRequest" :key="index">
                 <v-list-tile @click="opendetails(item)">
                   <v-list-tile-content>
                     <v-list-tile-title>{{ item.category }}</v-list-tile-title>
@@ -198,11 +202,14 @@ export default {
     }
   },
   computed: {
-    pastServiceRequest() {
+    activeServiceRequest() {
       var temp = this.$store.getters.getServiceRequests;
-      var activerequests = temp.filter(function(activerequest) {
-        return activerequest.status == 0;
-      });
+      var activerequests = [];
+      if (temp != null && temp != undefined) {
+        activerequests = temp.filter(function(activerequest) {
+          return activerequest.status == 0;
+        });
+      }
       return activerequests;
     },
     error() {

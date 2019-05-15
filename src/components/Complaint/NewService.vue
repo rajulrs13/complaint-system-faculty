@@ -16,7 +16,7 @@
               <v-layout row wrap>
                 <v-flex xs12 sm6 offset-sm3 class="text-xs-center">
                   <span class="font-weight-thin caption">Request For</span>
-                  <v-btn color="primary" flat @click="toggleTypeOfRoom">{{type_of_room}}</v-btn>
+                  <v-btn ref="change_room_type_btn" color="primary" flat @click="toggleTypeOfRoom">{{type_of_room}}</v-btn>
                 </v-flex>
                 <v-flex xs12 sm6 offset-sm3>
                   <v-select
@@ -590,6 +590,10 @@ export default {
       code: userblkcode
     };
     this.room_selected = userroom;
+  },
+  mounted() {
+    this.toggleTypeOfRoom()
+    this.toggleTypeOfRoom()
   }
 };
 </script>

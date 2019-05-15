@@ -9,18 +9,6 @@ export default {
     getServiceRequests(state) {
       return state.servicerequests;
     }
-    // getActiveServiceRequest(state) {
-    //   var activerequests = state.filter(function(activerequest) {
-    //     return activerequest.status == 0;
-    //   });
-    //   return activerequests;
-    // },
-    // getPastServiceRequest(state) {
-    //   var pastrequests = state.filter(function(pastrequest) {
-    //     return pastrequest.status == 1;
-    //   });
-    //   return pastrequests;
-    // }
   },
   mutations: {
     setServiceRequests(state, payload) {
@@ -45,12 +33,6 @@ export default {
           user: getters.getUserId,
           requesttimestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
-        // .then(doc => {
-        //   db.collection("users")
-        //     .doc(getters.getUserId)
-        //     .update({
-        //       servicerequests: firebase.firestore.FieldValue.arrayUnion(doc.id)
-        //     })
         .then(() => {
           commit("setLoading", false);
           commit("setSuccess", {
@@ -59,11 +41,6 @@ export default {
           });
           setTimeout(() => commit("clearSuccess"), 6000);
         })
-        //     .catch(error => {
-        //       commit("setLoading", false);
-        //       commit("setError", error);
-        //     });
-        // })
         .catch(error => {
           commit("setLoading", false);
           commit("setError", error);

@@ -1,10 +1,20 @@
 <template>
   <v-container fill-height>
     <div class="text-xs-center">
+      <v-dialog v-model="dialog" hide-overlay persistent width="300">
+        <v-card color="primary" dark>
+          <v-card-text class="text-xs-center">
+            Verifying...Please Stand By
+            <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </div>
+    <div class="text-xs-center">
       <v-dialog v-model="loading" hide-overlay persistent width="300">
         <v-card color="primary" dark>
           <v-card-text class="text-xs-center">
-            Signing In...Please Wait
+            Verifying...Please Stand By
             <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
           </v-card-text>
         </v-card>
@@ -66,9 +76,11 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import manipal from "@/assets/mujbiglogo.jpg";
 export default {
   data: () => ({
+    dialog: false,
     manipal: manipal,
     valid: false,
     email: "",
@@ -89,7 +101,35 @@ export default {
       });
     }
   },
+  computed: {
+    user() {
+      return this.$store.getters.getUserId;
+    },
+    loading() {
+      return this.$store.getters.loading;
+    },
+    success() {
+      return this.$store.getters.success;
+    },
+    error() {
+      return this.$store.getters.error;
+    },
+    ...mapGetters(["getUserId"]),
+    nextRoute() {
+      return this.$route.query.redirect || "/";
+    }
+  },
   watch: {
+    user(auth) {
+      if (!!auth) {
+        this.dialog = true;
+        if (this.nextRoute == "/") {
+          setTimeout(() => this.$router.replace("/dashboard"), 1200);
+        } else {
+          setTimeout(() => this.$router.replace(this.nextRoute), 1200);
+        }
+      }
+    },
     error(err) {
       if (!!err) {
         setTimeout(() => this.$store.dispatch("clearError"), 3000);
@@ -99,17 +139,6 @@ export default {
       if (!!con) {
         setTimeout(() => this.$store.dispatch("clearSuccess"), 2000);
       }
-    }
-  },
-  computed: {
-    error() {
-      return this.$store.getters.error;
-    },
-    success() {
-      return this.$store.getters.success;
-    },
-    loading() {
-      return this.$store.getters.loading;
     }
   }
 };

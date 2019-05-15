@@ -1,7 +1,11 @@
 <template>
   <v-layout row>
     <v-flex xs12>
-      <v-layout row wrap v-if="true">
+      <v-layout
+        row
+        wrap
+        v-if="pastServiceRequest!=null && pastServiceRequest!=undefined && pastServiceRequest.length>0"
+      >
         <v-flex xs12>
           <v-dialog
             v-model="detailsdialog"
@@ -200,9 +204,12 @@ export default {
   computed: {
     pastServiceRequest() {
       var temp = this.$store.getters.getServiceRequests;
-      var pastrequests = temp.filter(function(pastrequest) {
-        return pastrequest.status == 1;
-      });
+      var pastrequests = [];
+      if (temp != null && temp != undefined) {
+        pastrequests = temp.filter(function(pastrequest) {
+          return pastrequest.status == 0;
+        });
+      }
       return pastrequests;
     },
     error() {

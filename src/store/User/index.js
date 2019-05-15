@@ -59,8 +59,8 @@ export default {
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
         .then(data => {
-          commit("setLoading", false);
-          router.replace("/dashboard");
+          commit("setLoading", false)
+          router.replace("/dashboard")
           setTimeout(() => dispatch("clearSuccess"), 2000);
         })
         .catch(error => {
@@ -143,6 +143,6 @@ export default {
           commit("setLoading", false);
           commit("setError", error);
         });
-    },
+    }
   }
 };
