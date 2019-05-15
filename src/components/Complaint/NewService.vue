@@ -11,7 +11,7 @@
             <v-spacer></v-spacer>
           </v-toolbar>
           <!-- <h1 class="font-weight-light text-xs-center my-4">New Service Request</h1> -->
-          <v-form @submit.prevent="requestService" ref="form" v-model="registrationformvalid">
+          <v-form @submit.prevent="requestService" ref="form" v-model="requestformvalid">
             <v-container>
               <v-layout row wrap>
                 <v-flex xs12 sm6 offset-sm3 class="text-xs-center">
@@ -34,7 +34,7 @@
                     persistent-hint
                     :disabled="type_of_room == 'My Room'"
                     return-object
-                    :rules="inputruleforsubject"
+                    :rules="inputruleforselect"
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 offset-sm3 v-if="block_selected != ''">
@@ -48,7 +48,7 @@
                     prepend-icon="list_alt"
                     persistent-hint
                     return-object
-                    :rules="inputruleforsubject"
+                    :rules="inputruleforselect"
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 offset-sm3 v-if="block_selected != '' && room_selected != ''">
@@ -61,7 +61,7 @@
                     prepend-icon="list_alt"
                     persistent-hint
                     return-object
-                    :rules="inputruleforsubject"
+                    :rules="inputruleforselect"
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 offset-sm3 v-if="category != ''">
@@ -74,7 +74,7 @@
                     prepend-icon="horizontal_split"
                     persistent-hint
                     return-object
-                    :rules="inputruleforsubject"
+                    :rules="inputruleforselect"
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 offset-sm3 v-if="description != ''">
@@ -87,7 +87,7 @@
                     prepend-icon="access_time"
                     persistent-hint
                     return-object
-                    :rules="inputruleforsubject"
+                    :rules="inputruleforselect"
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 offset-sm3 v-if="availabilityoftime != ''">
@@ -107,6 +107,7 @@
                         prepend-icon="event"
                         readonly
                         v-on="on"
+                        :rules="inputruleforselect"
                       ></v-text-field>
                     </template>
                     <v-date-picker v-model="availabilityofdate" scrollable :min="minDate">
@@ -134,7 +135,7 @@
             </v-container>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary" :loading="loading" type="submit" raised ripple>Submit</v-btn>
+              <v-btn color="primary" :loading="loading" :disabled="!requestformvalid || loading" type="submit" raised ripple>Submit</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-form>
@@ -147,6 +148,8 @@
 <script>
 export default {
   data: () => ({
+    inputruleforselect: [t => !!t || "Required"],
+    requestformvalid:false,
     dialog: false,
     modal: false,
     valid: true,
@@ -160,12 +163,65 @@ export default {
       {
         name: "FH2",
         code: 2
+      },
+      {
+        name: "FH3",
+        code: 3
       }
     ],
     room_selected: "",
     list_of_rooms: {
-      1: ["001", "002", "003", "004", "101"],
-      2: ["001", "002", "003", "004"]
+      1: [
+        "001",
+        "002",
+        "003",
+        "004",
+        "005",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "201",
+        "202",
+        "203",
+        "204",
+        "205"
+      ],
+      2: [
+        "001",
+        "002",
+        "003",
+        "004",
+        "005",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "201",
+        "202",
+        "203",
+        "204",
+        "205"
+      ],
+      3: [
+        "001",
+        "002",
+        "003",
+        "004",
+        "005",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "201",
+        "202",
+        "203",
+        "204",
+        "205"
+      ]
     },
     category: "",
     list_of_categories: [

@@ -143,14 +143,22 @@ export default {
       name_edit_dialog: false,
       contact_edit_dialog: false,
       password_edit_dialog: false,
-      namerules: [value => !!value || "Name is required."],
+      namerules: [v => this.requiredfield(v) || "Name is Required"],
       contactrules: [
-        value => !!value || "Contact is required.",
+        value => !!value || "Contact is Required.",
         v => (v && v.length == 10) || "It must be of 10 digits."
       ]
     };
   },
   methods: {
+    requiredfield(val) {
+      if (val) {
+        if (val.trim().length == 0) return false;
+        else return true;
+      } else {
+        return false;
+      }
+    },
     openChangeNameDialog() {
       this.name_edit_dialog = true;
     },
