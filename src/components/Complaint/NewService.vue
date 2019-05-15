@@ -504,9 +504,9 @@ export default {
   }),
   methods: {
     toggleTypeOfRoom() {
-      var userblk = this.$store.getters.getUserBlock;
+      var userblk = this.$store.getters.getUserBlockShortName;
       var userblkcode = userblk[userblk.length - 1];
-      var userroom = this.$store.getters.getUserRoom;
+      var userroom = this.$store.getters.getUserFlat;
       if (this.type_of_room == "My Room") {
         this.type_of_room = "Other Room";
         this.block_selected = "";
@@ -529,9 +529,9 @@ export default {
       }
     },
     requestService() {
-      var userblk = this.$store.getters.getUserBlock;
+      var userblk = this.$store.getters.getUserBlockShortName;
       var userblkcode = userblk[userblk.length - 1];
-      var userroom = this.$store.getters.getUserRoom;
+      var userroom = this.$store.getters.getUserFlat;
       var obj = {
         block: this.block_selected.name,
         room: this.room_selected,
@@ -581,9 +581,9 @@ export default {
     }
   },
   created() {
-    var userblk = this.$store.getters.getUserBlock;
+    var userblk = this.$store.getters.getUserBlockShortName;
     var userblkcode = parseInt(userblk[userblk.length - 1]);
-    var userroom = this.$store.getters.getUserRoom;
+    var userroom = this.$store.getters.getUserFlat;
     this.type_of_room = "My Room";
     this.block_selected = {
       name: userblk,

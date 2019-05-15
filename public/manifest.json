@@ -1,0 +1,19 @@
+{
+  "name": "Service Desk",
+  "short_name": "Service Desk",
+  "theme_color": "#009688",
+  "background_color": "#009688",
+  "display": "standalone",
+  "start_url": "/",
+  "splash_pages": "null",
+  "lang": "en",
+  "orientation": "portrait",
+  "description": "Your One Stop Solution To Every Problem",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "https://phdregistration.mujquiz.com/images/icons/icon-512x512.png",
+      "sizes": "512x512"
+    }
+  ]
+}

@@ -7,8 +7,9 @@ export default {
     username: "",
     useremail: "",
     usercontact: "",
-    userblock: "",
-    userroom: ""
+    userblockname: "",
+    userblockshortname: "",
+    userflat: ""
   },
   getters: {
     getUserId(state) {
@@ -23,11 +24,14 @@ export default {
     getUserContact(state) {
       return state.usercontact;
     },
-    getUserBlock(state) {
-      return state.userblock;
+    getUserBlockName(state) {
+      return state.userblockname;
     },
-    getUserRoom(state) {
-      return state.userroom;
+    getUserBlockShortName(state) {
+      return state.userblockshortname;
+    },
+    getUserFlat(state) {
+      return state.userflat;
     }
   },
   mutations: {
@@ -43,11 +47,14 @@ export default {
     setUserContact(state, payload) {
       state.usercontact = payload;
     },
-    setUserBlock(state, payload) {
-      state.userblock = payload;
+    setUserBlockName(state, payload) {
+      state.userblockname = payload;
     },
-    setUserRoom(state, payload) {
-      state.userroom = payload;
+    setUserBlockShortName(state, payload) {
+      state.userblockshortname = payload;
+    },
+    setUserFlat(state, payload) {
+      state.userflat = payload;
     }
   },
   actions: {
@@ -59,8 +66,8 @@ export default {
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
         .then(data => {
-          commit("setLoading", false)
-          router.replace("/dashboard")
+          commit("setLoading", false);
+          router.replace("/dashboard");
           setTimeout(() => dispatch("clearSuccess"), 2000);
         })
         .catch(error => {
@@ -96,8 +103,9 @@ export default {
           commit("setUserName", doc.data().name);
           commit("setUserEmail", doc.data().email);
           commit("setUserContact", doc.data().contact);
-          commit("setUserBlock", doc.data().block);
-          commit("setUserRoom", doc.data().room);
+          commit("setUserBlockName", doc.data().blockname);
+          commit("setUserBlockShortName", doc.data().blockshortname);
+          commit("setUserFlat", doc.data().flatno);
         });
     },
     changeName({ commit, getters }, payload) {

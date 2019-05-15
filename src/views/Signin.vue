@@ -29,7 +29,7 @@
   max-height:10%;"></v-img>
         </v-layout>
         <br>-->
-        <h1 class="text-xs-center display-1 font-weight-light">My Faculty Days</h1>
+        <h1 class="text-xs-center display-1 font-weight-light">Service Desk</h1>
         <br>
         <v-layout row wrap class="text-xs-center">
           <v-flex xs12>

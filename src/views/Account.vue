@@ -163,10 +163,10 @@ export default {
       return this.$store.getters.getUserContact;
     },
     userblock() {
-      return this.$store.getters.getUserBlock;
+      return this.$store.getters.getUserBlockShortName;
     },
     userroom() {
-      return this.$store.getters.getUserRoom;
+      return this.$store.getters.getUserFlat;
     },
     error() {
       return this.$store.getters.error;

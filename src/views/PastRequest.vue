@@ -207,7 +207,7 @@ export default {
       var pastrequests = [];
       if (temp != null && temp != undefined) {
         pastrequests = temp.filter(function(pastrequest) {
-          return pastrequest.status == 0;
+          return pastrequest.status == 1;
         });
       }
       return pastrequests;
