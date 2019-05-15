@@ -204,8 +204,8 @@ export default {
       return hrs + ":" + mins;
     },
     calculateTimeBetweenDates(orig) {
-      const date1 = new Date();
-      const date2 = new Date(orig * 1000);
+      const date1 = new Date(orig * 1000);
+      const date2 = new Date();
       const diffTime = Math.abs(date2.getTime() - date1.getTime());
       var diffMins = Math.floor(diffTime / 60000);
       var diffHours = Math.floor(diffMins / 60);
