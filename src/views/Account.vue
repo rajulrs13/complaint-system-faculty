@@ -57,7 +57,7 @@
 
             <v-list-tile-content>
               <v-list-tile-title>+91 {{usercontact}}</v-list-tile-title>
-              <v-list-tile-sub-title>Mobile</v-list-tile-sub-title>
+              <v-list-tile-sub-title>Contact</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-icon @click="contact_edit_dialog = true">edit</v-icon>

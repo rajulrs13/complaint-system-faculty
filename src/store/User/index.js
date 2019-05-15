@@ -74,6 +74,7 @@ export default {
       commit("clearSuccess");
       commit("setUserId", payload.uid);
       dispatch("getUserData");
+      dispatch("getUserServiceRequests");
       commit("setLoading", false);
       commit("setSuccess", { message: "Signed In Successfully", status: true });
       setTimeout(() => commit("clearSuccess"), 2000);
@@ -89,7 +90,6 @@ export default {
       setTimeout(() => dispatch("clearSuccess"), 2000);
     },
     getUserData({ commit, getters }) {
-      commit("setLoading", true);
       db.collection("users")
         .doc(getters.getUserId)
         .onSnapshot(function(doc) {

@@ -7,7 +7,8 @@
             v-model="detailsdialog"
             v-if="detailitem!==null && detailitem!==undefined"
             persistent
-            max-width="400">
+            max-width="400"
+          >
             <v-card>
               <v-card-title class="title font-weight-light">
                 <v-spacer></v-spacer>Details
@@ -34,16 +35,21 @@
                       <v-flex
                         xs8
                         class="text-xs-right font-weight-light"
-                      >{{detailitem.blockandroom}}</v-flex>
+                      >{{detailitem.block + " " + detailitem.room}}</v-flex>
                     </v-layout>
                     <v-layout row wrap>
                       <v-flex xs4 class="text-xs-left font-weight-regular">Time:</v-flex>
-                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.time}}</v-flex>
-                    
+                      <v-flex
+                        xs8
+                        class="text-xs-right font-weight-light"
+                      >{{calculateTime(detailitem.requesttimestamp.seconds)}}</v-flex>
                     </v-layout>
                     <v-layout row wrap>
                       <v-flex xs4 class="text-xs-left font-weight-regular">Date:</v-flex>
-                      <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.date}}</v-flex>
+                      <v-flex
+                        xs8
+                        class="text-xs-right font-weight-light"
+                      >{{calculateDate(detailitem.requesttimestamp.seconds)}}</v-flex>
                     </v-layout>
                     <v-layout row wrap>
                       <v-flex xs4 class="text-xs-left font-weight-regular">Comments:</v-flex>
@@ -69,7 +75,7 @@
             </v-card>
           </v-dialog>
           <alert-component v-if="error" :text="error.message" :color="'error'"></alert-component>
-    <alert-component v-if="success" :text="success.message" :color="'success'"></alert-component>
+          <alert-component v-if="success" :text="success.message" :color="'success'"></alert-component>
           <v-toolbar flat color="primary">
             <v-spacer></v-spacer>
             <h1 class="font-weight-light text-xs-center my-4 white--text">Active Service Requests</h1>
@@ -79,18 +85,18 @@
 
           <v-flex xs12 sm6 offset-sm3>
             <v-list three-line>
-              <div v-for="(item, index) in items" :key="index">
+              <div v-for="(item, index) in pastServiceRequest" :key="index">
                 <v-list-tile @click="opendetails(item)">
                   <v-list-tile-content>
                     <v-list-tile-title>{{ item.category }}</v-list-tile-title>
                     <v-list-tile-sub-title class="text--primary">{{ item.description }}</v-list-tile-sub-title>
-                    <v-list-tile-sub-title>{{ item.blockandroom }}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>{{ item.block + " " + item.room }}</v-list-tile-sub-title>
                     <v-list-tile-sub-title class="text-truncate">{{ item.comments }}</v-list-tile-sub-title>
                   </v-list-tile-content>
 
                   <v-list-tile-action>
-                    <v-list-tile-action-text>{{ item.time }}</v-list-tile-action-text>
-                    <v-list-tile-action-text>{{ item.date }}</v-list-tile-action-text>
+                    <v-list-tile-action-text>{{ calculateTime(item.requesttimestamp.seconds) }}</v-list-tile-action-text>
+                    <v-list-tile-action-text>{{ calculateDate(item.requesttimestamp.seconds) }}</v-list-tile-action-text>
 
                     <!-- <v-icon v-if="item.status==1" color="success">lens</v-icon> -->
                     <!-- <v-icon v-else-if="item.status==2" color="error">lens</v-icon> -->
@@ -107,17 +113,17 @@
       </v-layout>
       <v-layout align-center justify-center column fill-height v-else>
         <v-container>
-        <br>
-        <div class="text-xs-center">
-          <v-icon size="220">history</v-icon>
-        </div>
-        <br>
-        <h2 style="text-align:center;" class="font-weight-light">No Active Service Requests</h2>
-        <br>
-        <p style="text-align:center;" class="font-weight-light">
-          To request a service, click on
-          <v-icon color="teal">add</v-icon>button down below
-        </p>
+          <br>
+          <div class="text-xs-center">
+            <v-icon size="220">history</v-icon>
+          </div>
+          <br>
+          <h2 style="text-align:center;" class="font-weight-light">No Active Service Requests</h2>
+          <br>
+          <p style="text-align:center;" class="font-weight-light">
+            To request a service, click on
+            <v-icon color="teal">add</v-icon>button down below
+          </p>
         </v-container>
       </v-layout>
     </v-flex>
@@ -161,6 +167,64 @@ export default {
     closedetails() {
       this.detailitem = null;
       this.detailsdialog = false;
+    },
+    calculateDate(secs) {
+      var temp = new Date(secs * 1000);
+      var date =
+        temp.getDate() < 10
+          ? "0" + temp.getDate().toString()
+          : temp.getDate().toString();
+      var month =
+        temp.getMonth() + 1 < 10
+          ? "0" + (temp.getMonth() + 1).toString()
+          : (temp.getMonth() + 1).toString();
+      var year = temp
+        .getFullYear()
+        .toString()
+        .substr(-2);
+      return date + "/" + month + "/" + year;
+    },
+    calculateTime(secs) {
+      var temp = new Date(secs * 1000);
+      var hrs =
+        temp.getHours() < 10
+          ? "0" + temp.getHours().toString()
+          : temp.getHours().toString();
+      var mins =
+        temp.getMinutes() < 10
+          ? "0" + temp.getMinutes().toString()
+          : temp.getMinutes().toString();
+      return hrs + ":" + mins;
+    }
+  },
+  computed: {
+    pastServiceRequest() {
+      var temp = this.$store.getters.getServiceRequests;
+      var activerequests = temp.filter(function(activerequest) {
+        return activerequest.status == 0;
+      });
+      return activerequests;
+    },
+    error() {
+      return this.$store.getters.error;
+    },
+    success() {
+      return this.$store.getters.success;
+    },
+    loading() {
+      return this.$store.getters.loading;
+    }
+  },
+  watch: {
+    error(err) {
+      if (!!err) {
+        setTimeout(() => this.$store.dispatch("clearError"), 3000);
+      }
+    },
+    success(con) {
+      if (!!con) {
+        setTimeout(() => this.$store.dispatch("clearSuccess"), 2000);
+      }
     }
   }
 };

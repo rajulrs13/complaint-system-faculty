@@ -1,6 +1,8 @@
 <template>
   <v-layout row>
     <v-flex xs12>
+      <alert-component v-if="error" :text="error.message" :color="'error'"></alert-component>
+      <alert-component v-if="success" :text="success.message" :color="'success'"></alert-component>
       <v-layout row wrap>
         <v-flex xs12>
           <v-toolbar flat color="primary">
@@ -9,7 +11,7 @@
             <v-spacer></v-spacer>
           </v-toolbar>
           <!-- <h1 class="font-weight-light text-xs-center my-4">New Service Request</h1> -->
-          <v-form @submit.prevent="validate" ref="form" v-model="registrationformvalid">
+          <v-form @submit.prevent="requestService" ref="form" v-model="registrationformvalid">
             <v-container>
               <v-layout row wrap>
                 <v-flex xs12 sm6 offset-sm3 class="text-xs-center">
@@ -87,7 +89,7 @@
                   <v-dialog
                     ref="dialog"
                     v-model="modal"
-                    :return-value.sync="date"
+                    :return-value.sync="availabilityofdate"
                     persistent
                     lazy
                     full-width
@@ -105,7 +107,7 @@
                     <v-date-picker v-model="availabilityofdate" scrollable :min="minDate">
                       <v-spacer></v-spacer>
                       <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
-                      <v-btn flat color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                      <v-btn flat color="primary" @click="$refs.dialog.save(availabilityofdate)">OK</v-btn>
                     </v-date-picker>
                   </v-dialog>
                 </v-flex>
@@ -502,6 +504,9 @@ export default {
   }),
   methods: {
     toggleTypeOfRoom() {
+      var userblk = this.$store.getters.getUserBlock;
+      var userblkcode = userblk[userblk.length - 1];
+      var userroom = this.$store.getters.getUserRoom;
       if (this.type_of_room == "My Room") {
         this.type_of_room = "Other Room";
         this.block_selected = "";
@@ -513,10 +518,10 @@ export default {
       } else {
         this.type_of_room = "My Room";
         this.block_selected = {
-          name: "FH 1",
-          code: 1
+          name: userblk,
+          code: userblkcode
         };
-        this.room_selected = "101";
+        this.room_selected = userroom;
         this.category = "";
         this.description = "";
         this.availabilityoftime = "";
@@ -524,17 +529,29 @@ export default {
       }
     },
     requestService() {
+      var userblk = this.$store.getters.getUserBlock;
+      var userblkcode = userblk[userblk.length - 1];
+      var userroom = this.$store.getters.getUserRoom;
       var obj = {
-        block:this.block_selected,
-        room:this.room_selected,
-        category:this.category,
-        description:this.description,
-        availabilityoftime:this.availabilityoftime,
-        availabilityofdate:this.availabilityofdate,
-        comments:this.comments,
-        status:0
-      }
-      this.$store.dispatch('requestService',obj)
+        block: this.block_selected.name,
+        room: this.room_selected,
+        category: this.category.name,
+        description: this.description.name,
+        availabilityoftime: this.availabilityoftime,
+        availabilityofdate: this.availabilityofdate,
+        comments: this.comments
+      };
+      this.$store.dispatch("requestService", obj);
+      this.type_of_room = "My Room";
+      this.block_selected = {
+        name: userblk,
+        code: userblkcode
+      };
+      this.room_selected = userroom;
+      this.category = "";
+      this.description = "";
+      this.availabilityoftime = "";
+      this.comments = "";
     }
   },
   computed: {
@@ -564,13 +581,15 @@ export default {
     }
   },
   created() {
-    console.log(this.$route);
+    var userblk = this.$store.getters.getUserBlock;
+    var userblkcode = parseInt(userblk[userblk.length - 1]);
+    var userroom = this.$store.getters.getUserRoom;
     this.type_of_room = "My Room";
     this.block_selected = {
-      name: "FH1",
-      code: 1
+      name: userblk,
+      code: userblkcode
     };
-    this.room_selected = "101";
+    this.room_selected = userroom;
   }
 };
 </script>
