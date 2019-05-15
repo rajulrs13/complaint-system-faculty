@@ -16,7 +16,12 @@
               <v-layout row wrap>
                 <v-flex xs12 sm6 offset-sm3 class="text-xs-center">
                   <span class="font-weight-thin caption">Request For</span>
-                  <v-btn ref="change_room_type_btn" color="primary" flat @click="toggleTypeOfRoom">{{type_of_room}}</v-btn>
+                  <v-btn
+                    ref="change_room_type_btn"
+                    color="primary"
+                    flat
+                    @click="toggleTypeOfRoom"
+                  >{{type_of_room}}</v-btn>
                 </v-flex>
                 <v-flex xs12 sm6 offset-sm3>
                   <v-select
@@ -475,6 +480,256 @@ export default {
           name: "TV Not Working",
           code: 17
         }
+      ],
+      5: [
+        {
+          name: "AC Cooling Not Effective",
+          code: 1
+        },
+        {
+          name: "AC Heating Not Effective",
+          code: 2
+        },
+        {
+          name: "AC Noisy",
+          code: 3
+        },
+        {
+          name: "AC Not Working",
+          code: 4
+        },
+        {
+          name: "Bathroom Exhaust Not Working",
+          code: 5
+        },
+        {
+          name: "Other",
+          code: 6
+        }
+      ],
+      6: [
+        {
+          name: "Chair & Sofa Cleaning Required",
+          code: 1
+        },
+        {
+          name: "Cob Web Cleaning Required",
+          code: 2
+        },
+        {
+          name: "Common Area Cleaning Required",
+          code: 3
+        },
+        {
+          name: "Common Washroom Cleaning Required",
+          code: 4
+        },
+        {
+          name: "Corridor Cleaning Required",
+          code: 5
+        },
+        {
+          name: "Corridor Dustbin Cleaning Required",
+          code: 6
+        },
+        {
+          name: "Fan Cleaning Required",
+          code: 7
+        },
+        {
+          name: "Floor Cleaning Of Room Required",
+          code: 8
+        },
+        {
+          name: "Lift Cleaning Required",
+          code: 9
+        },
+        {
+          name: "Mirror Cleaning Of Room Required",
+          code: 10
+        },
+        {
+          name: "Other",
+          code: 11
+        },
+        {
+          name: "Room Cleaning Required",
+          code: 12
+        },
+        {
+          name: "Room Dustbin Cleaning Required",
+          code: 13
+        },
+        {
+          name: "Wardrobe Cleaning Required",
+          code: 14
+        },
+        {
+          name: "Washroom Cleaning Required",
+          code: 15
+        },
+        {
+          name: "Window Cleaning Required",
+          code: 16
+        }
+      ],
+      7: [
+        {
+          name: "Bed Bugs Problem",
+          code: 1
+        },
+        {
+          name: "Cockroach Problem",
+          code: 2
+        },
+        {
+          name: "Flies Problem",
+          code: 3
+        },
+        {
+          name: "Mouse Problem",
+          code: 4
+        },
+        {
+          name: "Other",
+          code: 5
+        }
+      ],
+      8: [
+        {
+          name: "Automatic Water Level Controller Not Working",
+          code: 1
+        },
+        {
+          name: "Dummy Cap Required",
+          code: 2
+        },
+        {
+          name: "H/F Gun Handle Broken",
+          code: 3
+        },
+        {
+          name: "H/F Gun Replacement",
+          code: 4
+        },
+        {
+          name: "H/F Gun Stand Required",
+          code: 5
+        },
+        {
+          name: "H/F Pipe Replacement",
+          code: 6
+        },
+        {
+          name: "Hot & Cold Dispenser Not Working",
+          code: 7
+        },
+        {
+          name: "Hot & Cold Dispenser Tap Leakage",
+          code: 8
+        },
+        {
+          name: "Hot Water Problem",
+          code: 9
+        },
+        {
+          name: "Other",
+          code: 10
+        },
+        {
+          name: "Shower Not Working",
+          code: 11
+        },
+        {
+          name: "Sink Needs To Be Fixed",
+          code: 12
+        },
+        {
+          name: "Tap Required",
+          code: 13
+        },
+        {
+          name: "W/C Broken (Required)",
+          code: 14
+        },
+        {
+          name: "W/C Drain Pipe Blocked",
+          code: 15
+        },
+        {
+          name: "W/C Flush Tank Clamp",
+          code: 16
+        },
+        {
+          name: "W/C Flushing Problem",
+          code: 17
+        },
+        {
+          name: "W/C Seat Cover Required",
+          code: 18
+        },
+        {
+          name: "W/C Seat Required",
+          code: 19
+        },
+        {
+          name: "Wash Basin Broken",
+          code: 20
+        },
+        {
+          name: "Wash Basin Drain Pipe Blocked",
+          code: 21
+        },
+        {
+          name: "Wash Basin Drain Pipe Required",
+          code: 22
+        },
+        {
+          name: "Wash Basin Tap Required",
+          code: 23
+        },
+        {
+          name: "Wash Basin Tap Splendor Problem",
+          code: 24
+        },
+        {
+          name: "Wash Basin Tap To Be Tighten",
+          code: 25
+        }
+      ],
+      9: [
+        {
+          name: "CCTV Not Working",
+          code: 1
+        },
+        {
+          name: "Fire Alarm System Not Working",
+          code: 2
+        },
+        {
+          name: "Fire Extinguisher Refilling Required",
+          code: 3
+        },
+        {
+          name: "Fire Signange Missing",
+          code: 4
+        },
+        {
+          name: "First Aid Medicines To Replenished",
+          code: 5
+        },
+        {
+          name: "Medical Equipment To Be Repaired",
+          code: 6
+        },
+        {
+          name: "Other",
+          code: 7
+        },
+        {
+          name: "PA System Not Working",
+          code: 8
+        }
       ]
     },
     availabilityoftime: "",
@@ -592,8 +847,8 @@ export default {
     this.room_selected = userroom;
   },
   mounted() {
-    this.toggleTypeOfRoom()
-    this.toggleTypeOfRoom()
+    this.toggleTypeOfRoom();
+    this.toggleTypeOfRoom();
   }
 };
 </script>

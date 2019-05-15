@@ -5,7 +5,7 @@
         <v-card>
           <v-card-title class="title font-weight-light">Change Your Display Name?</v-card-title>
           <v-card-text>
-            <v-text-field label="New Name" v-model="newname" single-line></v-text-field>
+            <v-text-field label="New Name" v-model="newname" single-line :rules="namerules" :disabled="loading" required></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -18,7 +18,7 @@
         <v-card>
           <v-card-title class="title font-weight-light">Change Your Phone Number?</v-card-title>
           <v-card-text>
-            <v-text-field label="New Phone Number" v-model="newcontact" single-line></v-text-field>
+            <v-text-field label="New Phone Number" v-model="newcontact" single-line type="number" :disabled="loading" :counter="10" :rules="contactrules" required></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -31,7 +31,10 @@
         <v-card>
           <v-card-title class="title font-weight-light">Change Your Password?</v-card-title>
           <v-card-text>
-            <span class="font-weight-light">A <b>Password Reset Email</b> will be sent to your email id. You can reset your password via the link in the email.</span>
+            <span class="font-weight-light">
+              A
+              <b>Password Reset Email</b> will be sent to your email id. You can reset your password via the link in the email.
+            </span>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -139,7 +142,12 @@ export default {
       confirmnewpassword: "",
       name_edit_dialog: false,
       contact_edit_dialog: false,
-      password_edit_dialog: false
+      password_edit_dialog: false,
+      namerules: [value => !!value || "Name is required."],
+      contactrules: [
+        value => !!value || "Contact is required.",
+        v => (v && v.length == 10) || "It must be of 10 digits."
+      ]
     };
   },
   methods: {

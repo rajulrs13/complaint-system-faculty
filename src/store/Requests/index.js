@@ -31,6 +31,7 @@ export default {
           comments: payload.comments,
           status: 0,
           user: getters.getUserId,
+          username: getters.getUserName,
           requesttimestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
         .then(() => {

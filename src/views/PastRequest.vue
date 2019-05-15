@@ -35,7 +35,7 @@
                       <v-flex xs8 class="text-xs-right font-weight-light">{{detailitem.description}}</v-flex>
                     </v-layout>
                     <v-layout row wrap>
-                      <v-flex xs4 class="text-xs-left font-weight-regular">Room:</v-flex>
+                      <v-flex xs4 class="text-xs-left font-weight-regular">Flat:</v-flex>
                       <v-flex
                         xs8
                         class="text-xs-right font-weight-light"
