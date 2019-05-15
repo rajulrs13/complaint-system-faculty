@@ -66,7 +66,10 @@
                     </v-layout>
                     <v-layout row wrap>
                       <v-flex xs5 class="text-xs-left font-weight-regular">Time Taken:</v-flex>
-                      <v-flex xs7 class="text-xs-right font-weight-light">{{calculateTimeBetweenDates(detailitem.requesttimestamp.seconds,detailitem.resolvetimestamp.seconds)}}</v-flex>
+                      <v-flex
+                        xs7
+                        class="text-xs-right font-weight-light"
+                      >{{calculateTimeBetweenDates(detailitem.requesttimestamp.seconds,detailitem.resolvetimestamp.seconds)}}</v-flex>
                     </v-layout>
                   </v-flex>
                 </v-layout>
@@ -200,7 +203,7 @@ export default {
           : temp.getMinutes().toString();
       return hrs + ":" + mins;
     },
-    calculateTimeBetweenDates(req,res) {
+    calculateTimeBetweenDates(req, res) {
       const date1 = new Date(req * 1000);
       const date2 = new Date(res * 1000);
       const diffTime = Math.abs(date2.getTime() - date1.getTime());
@@ -209,7 +212,11 @@ export default {
       var diffDays = Math.floor(diffHours / 24);
       if (diffDays < 1) {
         return (
-          (diffHours % 24).toString() + "hrs" + " " + (diffMins % 60).toString() + "mins"
+          (diffHours % 24).toString() +
+          "hrs" +
+          " " +
+          (diffMins % 60).toString() +
+          "mins"
         );
       } else {
         return (
@@ -232,6 +239,10 @@ export default {
           return pastrequest.status == 1;
         });
       }
+      function compare(a, b) {
+        return b.resolvetimestamp.seconds - a.resolvetimestamp.seconds;
+      }
+      pastrequests.sort(compare);
       return pastrequests;
     },
     error() {

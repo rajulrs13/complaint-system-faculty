@@ -212,7 +212,11 @@ export default {
       var diffDays = Math.floor(diffHours / 24);
       if (diffDays < 1) {
         return (
-          (diffHours % 24).toString() + "hrs" + " " + (diffMins % 60).toString() + "mins"
+          (diffHours % 24).toString() +
+          "hrs" +
+          " " +
+          (diffMins % 60).toString() +
+          "mins"
         );
       } else {
         return (
@@ -235,6 +239,10 @@ export default {
           return activerequest.status == 0;
         });
       }
+      function compare(a, b) {
+        return b.requesttimestamp.seconds - a.requesttimestamp.seconds;
+      }
+      activerequests.sort(compare);
       return activerequests;
     },
     error() {
