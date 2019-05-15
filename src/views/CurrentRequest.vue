@@ -66,7 +66,10 @@
                     </v-layout>
                     <v-layout row wrap>
                       <v-flex xs5 class="text-xs-left font-weight-regular">Elapsed Time:</v-flex>
-                      <v-flex xs7 class="text-xs-right font-weight-light">11 hr</v-flex>
+                      <v-flex
+                        xs7
+                        class="text-xs-right font-weight-light"
+                      >{{calculateTimeBetweenDates(detailitem.requesttimestamp.seconds)}}</v-flex>
                     </v-layout>
                   </v-flex>
                 </v-layout>
@@ -199,6 +202,28 @@ export default {
           ? "0" + temp.getMinutes().toString()
           : temp.getMinutes().toString();
       return hrs + ":" + mins;
+    },
+    calculateTimeBetweenDates(orig) {
+      const date1 = new Date();
+      const date2 = new Date(orig * 1000);
+      const diffTime = Math.abs(date2.getTime() - date1.getTime());
+      var diffMins = Math.floor(diffTime / 60000);
+      var diffHours = Math.floor(diffMins / 60);
+      var diffDays = Math.floor(diffHours / 24);
+      if (diffDays < 1) {
+        return (
+          (diffHours % 24).toString() + "hrs" + " " + (diffMins % 60).toString() + "mins"
+        );
+      } else {
+        return (
+          diffDays.toString() +
+          " days " +
+          (diffHours % 24).toString() +
+          " hrs " +
+          (diffMins % 60).toString() +
+          " mins"
+        );
+      }
     }
   },
   computed: {
