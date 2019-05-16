@@ -6,7 +6,7 @@ import Dashboard from '@/views/Dashboard.vue'
 import PastRequest from '@/views/PastRequest.vue'
 import CurrentRequest from '@/views/CurrentRequest.vue'
 import Account from '@/views/Account.vue'
-import NewService from '@/components/Complaint/NewService.vue'
+import NewService from '@/views/NewService.vue'
 
 Vue.use(Router)
 
