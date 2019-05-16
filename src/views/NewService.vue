@@ -110,7 +110,7 @@
                         :rules="inputruleforselect"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="availabilityofdate" scrollable :min="minDate">
+                    <v-date-picker v-model="availabilityofdate" scrollable :min="minDate" :max="maxDate">
                       <v-spacer></v-spacer>
                       <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
                       <v-btn flat color="primary" @click="$refs.dialog.save(availabilityofdate)">OK</v-btn>
@@ -135,7 +135,14 @@
             </v-container>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary" :loading="loading" :disabled="!requestformvalid || loading" type="submit" raised ripple>Submit</v-btn>
+              <v-btn
+                color="primary"
+                :loading="loading"
+                :disabled="!requestformvalid || loading"
+                type="submit"
+                raised
+                ripple
+              >Submit</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-form>
@@ -149,7 +156,7 @@
 export default {
   data: () => ({
     inputruleforselect: [t => !!t || "Required"],
-    requestformvalid:false,
+    requestformvalid: false,
     dialog: false,
     modal: false,
     valid: true,
@@ -877,6 +884,11 @@ export default {
     },
     error() {
       return this.$store.getters.error;
+    },
+    maxDate() {
+      var k = new Date().getTime();
+      k = k + 1000 * 60 * 60 * 24 * 1;
+      return new Date(k).toISOString().substr(0, 10);
     }
   },
   watch: {
