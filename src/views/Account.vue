@@ -9,7 +9,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click="closeChangeNameDialog">No</v-btn>
+            <v-btn color="error" flat @click="closeChangeNameDialog">No</v-btn>
             <v-btn color="primary" flat @click="changeName">Yes</v-btn>
           </v-card-actions>
         </v-card>
@@ -22,7 +22,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click="closeChangeContactDialog">No</v-btn>
+            <v-btn color="error" flat @click="closeChangeContactDialog">No</v-btn>
             <v-btn color="primary" flat @click="changeContact">Yes</v-btn>
           </v-card-actions>
         </v-card>
@@ -38,7 +38,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click="closeChangePasswordDialog">No</v-btn>
+            <v-btn color="error" flat @click="closeChangePasswordDialog">No</v-btn>
             <v-btn color="primary" flat @click="changePassword">Yes</v-btn>
           </v-card-actions>
         </v-card>

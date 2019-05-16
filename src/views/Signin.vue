@@ -4,7 +4,7 @@
       <v-dialog v-model="password_change_dialog" persistent max-width="400">
         <v-card>
           <v-card-title class="title font-weight-light">Reset Your Password ?</v-card-title>
-          <v-form @submit.prevent="resetPassword" ref="resetform" v-model="valid">
+          <v-form @submit.prevent="resetPassword" ref="resetform" v-model="resetformvalid">
             <v-card-text>
               <span class="font-weight-light">
                 Enter your email id and we will send a
@@ -23,8 +23,8 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary" flat @click="clearresetform()">No</v-btn>
-              <v-btn color="primary" flat type="submit">Yes</v-btn>
+              <v-btn color="error" :disabled="loading" flat @click="clearresetform()">No</v-btn>
+              <v-btn color="primary" :disabled="!resetformvalid || loading" flat type="submit">Yes</v-btn>
             </v-card-actions>
           </v-form>
         </v-card>
@@ -93,14 +93,14 @@
           <v-layout row wrap>
             <v-flex xs6>
               <div class="text-xs-center">
-                <v-btn @click="clear()" fab large color="error" raised ripple>
+                <v-btn @click="clear()" :disabled="loading" fab large color="error" raised ripple>
                   <v-icon>clear</v-icon>
                 </v-btn>
               </div>
             </v-flex>
             <v-flex xs6>
               <div class="text-xs-center">
-                <v-btn :disabled="!valid" type="submit" fab large color="primary" raised ripple>
+                <v-btn :disabled="!valid || loading" type="submit" fab large color="primary" raised ripple>
                   <v-icon>near_me</v-icon>
                 </v-btn>
               </div>
@@ -122,6 +122,7 @@ export default {
     dialog: false,
     // manipal: manipal,
     valid: false,
+    resetformvalid:false,
     email: "",
     showpassword: false,
     password: "",
