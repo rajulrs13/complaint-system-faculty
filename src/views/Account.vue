@@ -4,27 +4,61 @@
       <v-dialog v-model="name_edit_dialog" persistent max-width="400">
         <v-card>
           <v-card-title class="title font-weight-light">Change Your Display Name?</v-card-title>
-          <v-card-text>
-            <v-text-field label="New Name" v-model="newname" single-line :rules="namerules" :disabled="loading" required></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="error" flat @click="closeChangeNameDialog">No</v-btn>
-            <v-btn color="primary" flat @click="changeName">Yes</v-btn>
-          </v-card-actions>
+          <v-form @submit.prevent="changeName" ref="namechangeform" v-model="changenameformvalid">
+            <v-card-text>
+              <v-text-field
+                label="New Name"
+                v-model="newname"
+                single-line
+                :rules="namerules"
+                :disabled="loading"
+                required
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="error" flat :disabled="loading" @click="clearNameChangeForm">No</v-btn>
+              <v-btn
+                color="primary"
+                flat
+                :disabled="!changenameformvalid || loading"
+                type="submit"
+              >Yes</v-btn>
+            </v-card-actions>
+          </v-form>
         </v-card>
       </v-dialog>
       <v-dialog v-model="contact_edit_dialog" persistent max-width="400">
         <v-card>
           <v-card-title class="title font-weight-light">Change Your Phone Number?</v-card-title>
-          <v-card-text>
-            <v-text-field label="New Phone Number" v-model="newcontact" single-line type="number" :disabled="loading" :counter="10" :rules="contactrules" required></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="error" flat @click="closeChangeContactDialog">No</v-btn>
-            <v-btn color="primary" flat @click="changeContact">Yes</v-btn>
-          </v-card-actions>
+          <v-form
+            @submit.prevent="changeContact"
+            ref="contactchangeform"
+            v-model="changecontactformvalid"
+          >
+            <v-card-text>
+              <v-text-field
+                label="New Phone Number"
+                v-model="newcontact"
+                single-line
+                type="number"
+                :disabled="loading"
+                :counter="10"
+                :rules="contactrules"
+                required
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="error" flat :disabled="loading" @click="clearContactChangeForm">No</v-btn>
+              <v-btn
+                color="primary"
+                flat
+                :disabled="!changecontactformvalid || loading"
+                type="submit"
+              >Yes</v-btn>
+            </v-card-actions>
+          </v-form>
         </v-card>
       </v-dialog>
       <v-dialog v-model="password_edit_dialog" persistent max-width="400">
@@ -62,7 +96,7 @@
               <v-list-tile-sub-title>Name</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-icon @click="openChangeNameDialog">edit</v-icon>
+              <v-icon @click="name_edit_dialog = true">edit</v-icon>
             </v-list-tile-action>
           </v-list-tile>
           <v-divider></v-divider>
@@ -137,7 +171,9 @@
 export default {
   data() {
     return {
+      changenameformvalid: false,
       newname: "",
+      changecontactformvalid: false,
       newcontact: "",
       confirmnewpassword: "",
       name_edit_dialog: false,
@@ -159,27 +195,21 @@ export default {
         return false;
       }
     },
-    openChangeNameDialog() {
-      this.name_edit_dialog = true;
-    },
-    closeChangeNameDialog() {
-      this.newname = "";
+    clearNameChangeForm() {
+      this.$refs.namechangeform.reset();
       this.name_edit_dialog = false;
     },
     changeName() {
       this.$store.dispatch("changeName", this.newname);
-      this.closeChangeNameDialog();
+      this.clearNameChangeForm();
     },
-    openChangeContactDialog() {
-      this.contact_edit_dialog = true;
-    },
-    closeChangeContactDialog() {
-      this.newcontact = "";
+    clearContactChangeForm() {
+      this.$refs.contactchangeform.reset();
       this.contact_edit_dialog = false;
     },
     changeContact() {
       this.$store.dispatch("changeContact", this.newcontact);
-      this.closeChangeContactDialog();
+      this.clearContactChangeForm();
     },
     openChangePasswordDialog() {
       this.password_edit_dialog = true;
