@@ -1,6 +1,34 @@
 <template>
   <v-container fill-height>
     <div class="text-xs-center">
+      <v-dialog v-model="password_change_dialog" persistent max-width="400">
+        <v-card>
+          <v-card-title class="title font-weight-light">Reset Your Password ?</v-card-title>
+          <v-form @submit.prevent="resetPassword" ref="resetform" v-model="valid">
+            <v-card-text>
+              <span class="font-weight-light">
+                Enter your email id and we will send a
+                <span
+                  class="font-weight-regular"
+                >Password Reset Email</span> to you.
+              </span>
+              <v-text-field
+                label="Registered Email ID"
+                v-model="emailforreset"
+                single-line
+                :disabled="loading"
+                :rules="emailrules"
+                required
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" flat @click="clearresetform()">No</v-btn>
+              <v-btn color="primary" flat type="submit">Yes</v-btn>
+            </v-card-actions>
+          </v-form>
+        </v-card>
+      </v-dialog>
       <v-dialog v-model="dialog" hide-overlay persistent width="300">
         <v-card color="primary" dark>
           <v-card-text class="text-xs-center">
@@ -51,6 +79,15 @@
             counter
             @click:append="showpassword = !showpassword"
           ></v-text-field>
+
+          <v-layout row wrap>
+            <v-flex xs12 class="text-xs-center">
+              <span
+                class="caption font-weight-light"
+                @click="password_change_dialog = true"
+              >Forgot Password ?</span>
+            </v-flex>
+          </v-layout>
           <br>
           <br>
           <v-layout row wrap>
@@ -77,28 +114,43 @@
 
 <script>
 import { mapGetters } from "vuex";
-import manipal from "@/assets/mujbiglogo.jpg";
+// import manipal from "@/assets/mujbiglogo.jpg";
 export default {
   data: () => ({
+    password_change_dialog: false,
+    emailforreset: "",
     dialog: false,
-    manipal: manipal,
+    // manipal: manipal,
     valid: false,
     email: "",
     showpassword: false,
     password: "",
-    emailrules: [v => !!v || "Please enter valid Email ID"],
     passwordrule: [value => !!value || "Required."],
+    emailrules: [
+      v => !!v || "E-mail is required",
+      v =>
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+        "Please enter valid Email ID"
+    ],
     checkbox: false
   }),
   methods: {
     clear() {
       this.$refs.form.reset();
     },
+    clearresetform() {
+      this.$refs.resetform.reset();
+      this.password_change_dialog = false;
+    },
     signUserIn() {
       this.$store.dispatch("signUserIn", {
         email: this.email,
         password: this.password
       });
+    },
+    resetPassword() {
+      this.$store.dispatch("resetPassword", this.emailforreset);
+      this.clearresetform();
     }
   },
   computed: {
