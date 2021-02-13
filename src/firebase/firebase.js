@@ -3,12 +3,13 @@ import "@firebase/auth";
 import "@firebase/firestore";
 
 firebase.initializeApp({
-  apiKey: "AIzaSyAi1ixfdiRNqzOpgcPo3K9dc0BvvJe3cPE",
-  authDomain: "myfacultydays.firebaseapp.com",
-  projectId: "myfacultydays",
-  storageBucket: "myfacultydays.appspot.com",
-  messagingSenderId: "1035848280229",
-  appId: "1:1035848280229:web:b9a8d8a6c2aefa7628054c"
+  apiKey: "AIzaSyAtw8XjYvNvwFUo_Hp2m8DAhg7R0l6qzFc",
+  authDomain: "muj-complaint-portal.firebaseapp.com",
+  databaseURL: "https://muj-complaint-portal.firebaseio.com",
+  projectId: "muj-complaint-portal",
+  storageBucket: "muj-complaint-portal.appspot.com",
+  messagingSenderId: "875793367693",
+  appId: "1:875793367693:web:254caf851500fd5e"
 });
 
 export default firebase;
