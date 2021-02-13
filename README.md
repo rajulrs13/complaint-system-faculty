@@ -1,7 +1,7 @@
 # complaint-system-faculty
 
 ## Screenshots
-![alt Screenshot_1](https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_0.png | width=100)
+![alt Screenshot_1](https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_0.png){:class="img-responsive"}
 ![alt Screenshot_2](https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_1.png?raw=true)
 ![alt Screenshot_3](https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_2.png?raw=true)
 ![alt Screenshot_4](https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_3.png?raw=true)
