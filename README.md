@@ -2,11 +2,11 @@
 
 ## Screenshots
 <img src="https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_0.png" width="200" height="452">
-![alt Screenshot_2](https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_1.png?raw=true)
-![alt Screenshot_3](https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_2.png?raw=true)
-![alt Screenshot_4](https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_3.png?raw=true)
-![alt Screenshot_5](https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_4.png?raw=true)
-![alt Screenshot_6](https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_5.png?raw=true)
+<img src="https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_1.png" width="200" height="452">
+<img src="https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_2.png" width="200" height="452">
+<img src="https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_3.png" width="200" height="452">
+<img src="https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_4.png" width="200" height="452">
+<img src="https://github.com/rajulrs13/complaint-system-faculty/blob/master/src/SS/MyFacultyDays_SS_5.png" width="200" height="452">
 
 ## Project setup
 ```
